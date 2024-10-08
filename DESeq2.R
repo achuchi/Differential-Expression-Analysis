@@ -116,7 +116,7 @@ for (name in names(count_datasets)) {
 
 
 
-# FOR RAW DATA W/ DESEQ2 INTERNALIZATION ----------------------------------------------------------------------------------------------------
+# FOR RAW DATA W/O DESEQ2 INTERNALIZATION ----------------------------------------------------------------------------------------------------
 
 library(DESeq2)
 
