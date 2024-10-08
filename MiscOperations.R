@@ -25,26 +25,47 @@ write_xlsx(list("DESeq2_10min" = sorted_DESeq2_10,
 
 # Percentage Calculations
 
-# Define DESeq2 results list
+# WHAT % OF DESEQ2 ANALYZED GENE CHANGES ARE SIGNIFICANT (0.05)
 DESeq2_Percent <- list(
   counts10 = norm_results_list[["counts10_norm"]],
   counts30 = norm_results_list[["counts30_norm"]],
   counts120 = norm_results_list[["counts120_norm"]]
 )
 
-# Function to calculate percentage of genes with p-value < 0.05
+
 calculate_percentage <- function(results) {
-  total_genes <- nrow(results)  # Total number of genes
-  # Count significant genes, excluding NA values
+  total_genes <- nrow(results)  
   significant_genes <- sum(results$pvalue < 0.05, na.rm = TRUE)  
-  percentage <- (significant_genes / total_genes) * 100  # Calculate percentage
+  percentage <- (significant_genes / total_genes) * 100  
   return(percentage)
 }
 
-# Calculate percentages for each time point
+
 percentages_DESeq2 <- sapply(DESeq2_Percent, calculate_percentage)
 
-# Print results
+
 cat("Percentage of significant genes in DESeq2 results:\n")
 for (name in names(percentages_DESeq2)) {
   cat(paste0(name, ": ", round(percentages_DESeq2[name], 2), "%\n"))
+}
+
+# WHAT % OF DESEQ2 ANALYZED GENE CHANGES ARE SIGNIFICANT (0.05)
+limma_Percent <- list(
+  counts10 = limma_results_10,
+  counts30 = limma_results_30,
+  counts120 = limma_results_120
+)
+
+calculate_limma_percentage <- function(results) {
+  total_genes <- nrow(results)
+  significant_genes <- sum(results$P.Value < 0.05)
+  percentage <- (significant_genes / total_genes) * 100
+  return(percentage)
+}
+
+percentages_limma <- sapply(limma_Percent, calculate_limma_percentage)
+
+cat("Percentage of significant genes in limma results:\n")
+for (name in names(percentages_limma)) {
+  cat(paste0(name, ": ", percentages_limma[name], "%\n"))
+}
