@@ -63,12 +63,11 @@ func_DESeq2 <- function(count_data, condition_data) {
   # Exclude gene labels and convert to matrix
   count_data_matrix <- as.matrix(count_data[-1])  # Exclude first column (gene labels)
   
-  # Debug: Print dimensions and column names
   cat("Dimensions of count_data_matrix:", dim(count_data_matrix), "\n")
   cat("Number of rows in condition_data:", nrow(condition_data), "\n")
   cat("Column names in count_data_matrix:", colnames(count_data_matrix), "\n")
   
-  # Ensure the count_data and condition_data have the same number of columns and rows
+  
   if (ncol(count_data_matrix) != nrow(condition_data)) {
     stop("The number of columns in count_data does not match the number of rows in condition_data")
   }
@@ -135,7 +134,7 @@ func_DESeq2 <- function(count_data, condition_data) {
   # Exclude gene labels and convert to matrix
   count_data_matrix <- as.matrix(count_data[-1])  # Exclude first column (gene labels)
   
-  # Debug: Print dimensions and column names
+ 
   cat("Dimensions of count_data_matrix:", dim(count_data_matrix), "\n")
   cat("Number of rows in condition_data:", nrow(condition_data), "\n")
   cat("Column names in count_data_matrix:", colnames(count_data_matrix), "\n")
@@ -145,13 +144,13 @@ func_DESeq2 <- function(count_data, condition_data) {
     stop("The number of columns in count_data does not match the number of rows in condition_data")
   }
   
-  # Check if count_data_matrix contains only integers
+  
   if (!all(count_data_matrix == round(count_data_matrix))) {
     cat("Warning: Non-integer values detected in count_data. Converting to integers.\n")
     count_data_matrix <- round(count_data_matrix)
   }
   
-  # Create DESeqDataSet with internal normalization
+  
   dds <- DESeqDataSetFromMatrix(countData = count_data_matrix,
                                 colData = condition_data,
                                 design = ~ condition)
