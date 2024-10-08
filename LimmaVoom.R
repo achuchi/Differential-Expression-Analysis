@@ -61,8 +61,8 @@ library(limma)
 # Limma voom function
 func_limma_voom <- function(norm_counts, condition_data) {
   
-  rownames(norm_counts) <- make.unique(norm_counts$Gene)  # Ensure unique row names
-  norm_counts <- norm_counts[, -1]  # Remove 'Gene' column after setting row names
+  rownames(norm_counts) <- make.unique(norm_counts$Gene)  
+  norm_counts <- norm_counts[, -1]  # Removing Gene Column
   
   design <- model.matrix(~ condition_data$condition)
   v <- voom(as.matrix(norm_counts), design, plot = TRUE)
@@ -71,7 +71,7 @@ func_limma_voom <- function(norm_counts, condition_data) {
   fit <- eBayes(fit)
   
   res <- topTable(fit, coef = 2, number = Inf) 
-  res$Gene <- rownames(res)  # Add gene names back as a column
+  res$Gene <- rownames(res)  # Restoring Gene Column
   return(res)
 }
 
