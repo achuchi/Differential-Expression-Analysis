@@ -49,7 +49,7 @@ counts120_rlog <- counts120[, grepl("crtl_\\w+\\.rlog|Dex_\\w+\\.rlog", colnames
 counts120_rlog <- cbind(Gene = gene_labels120, counts120_rlog)
 
 
-# RUNNING DESeq2 FOR NORMALIZED COUNTS ----------------------------------------------------------------------------------------------------------
+# RUNNING DESeq2 FOR NORMALIZED COUNTS (NO INTERNAL NORMALIZTION) ----------------------------------------------------------------------------------------------------------
 # Condition data
 condition_data_10 <- data.frame(condition = factor(c(rep("Control", sum(grepl("crtl", colnames(counts10_norm)))), 
                                                      rep("Dex", sum(grepl("Dex", colnames(counts10_norm)))))))
@@ -116,7 +116,7 @@ for (name in names(count_datasets)) {
 
 
 
-# FOR RAW DATA W/O DESEQ2 INTERNALIZATION ----------------------------------------------------------------------------------------------------
+# FOR RAW DATA W/ DESEQ2 INTERNALIZATION ----------------------------------------------------------------------------------------------------
 
 library(DESeq2)
 
